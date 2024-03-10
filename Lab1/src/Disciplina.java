@@ -1,37 +1,57 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Disciplina {
     private String nome;
-    private Professor professor;
+    private String horarioDisciplina;
+    private Professor professorTitular;
     private List<Aluno> alunosMatriculados;
 
-    public Disciplina(String nome, Professor professor, List<Aluno> alunosMatriculados) {
+    public Disciplina(String nome, String horarioDisciplina) {
         this.nome = nome;
-        this.professor = professor;
-        this.alunosMatriculados = alunosMatriculados;
+        this.horarioDisciplina = horarioDisciplina;
+        this.alunosMatriculados = new ArrayList<>();
     }
 
     public String getNome() {
         return nome;
     }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+    
+    //Horario (professor) e Horario (aluno)
+    public String getHorarioDisciplina() {
+        return horarioDisciplina;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public Professor getProfessorTitular() {
+        return professorTitular;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setProfessorTitular(Professor professor) {
+        this.professorTitular = professor;
     }
 
+    
     public List<Aluno> getAlunosMatriculados() {
         return alunosMatriculados;
     }
+    
+    //Verifica se o aluno já está matriculado e realiza a matricula do aluno na discplina
+    public boolean matricularAluno(Aluno aluno) {
+        if (alunoJaEstaMatriculado(aluno)) {
+            return false;
+        }
 
-    public void setAlunosMatriculados(List<Aluno> alunosMatriculados) {
-        this.alunosMatriculados = alunosMatriculados;
+        alunosMatriculados.add(aluno);
+        aluno.matricularDisciplina(this);
+        return true;
+    }
+
+    //Quais alunos matriculados na disciplina?
+    public List<Aluno> listarAlunosMatriculados() {
+        return alunosMatriculados;
+    }
+
+    private boolean alunoJaEstaMatriculado(Aluno aluno) {
+        return alunosMatriculados.contains(aluno);
     }
 }
