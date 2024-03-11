@@ -1,5 +1,4 @@
 import java.util.List;
-import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
@@ -13,12 +12,12 @@ public class Main {
         Disciplina disciplina2 = new Disciplina("APS", "11:00 - 13:00");
         Disciplina disciplina3 = new Disciplina("Redes", "14:00 - 16:00");
         
- 
 
         // Matrícula de alunos na disciplina
         disciplina1.matricularAluno(aluno1);
         disciplina1.matricularAluno(aluno2);
         disciplina2.matricularAluno(aluno1);
+        disciplina3.matricularAluno(aluno1);
 
         // Atribuição de disciplina ao professor
         professor1.atribuirDisciplina(disciplina1);
@@ -53,7 +52,7 @@ public class Main {
         }
         
         // Quais os horários de aula de um discente
-        System.out.println("\nHorários de aula do dicente " + aluno1.getNome() + ":");
+        System.out.println("\nHorários de aula do discente " + aluno1.getNome() + ":");
         for (Disciplina d : aluno1.getDisciplinasMatriculadas()) {
             System.out.println(d.getNome() + " - Horário: " + d.getHorarioDisciplina());
         }
