@@ -1,15 +1,19 @@
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
 public class AlunoTest {
 
     private Aluno aluno;
+    private Disciplina disciplina;
 
     @Before
     public void setUp() {
         aluno = new Aluno("João", 123);
+        disciplina = new Disciplina("Matemática", "8:00 - 9:00");
     }
 
     @Test
@@ -22,11 +26,10 @@ public class AlunoTest {
 
     @Test
     public void testMatricularDisciplina() {
-        Disciplina disciplina = new Disciplina("Matemática", "Segunda-feira, 8:00 - 10:00");
-
         aluno.matricularDisciplina(disciplina);
-
-        assertEquals(2, aluno.getDisciplinasMatriculadas().size());
-        assertEquals("Matemática", aluno.getDisciplinasMatriculadas().get(0).getNome());
+        List<Disciplina> disciplinasMatriculadas = aluno.getDisciplinasMatriculadas();
+        assertEquals(1, disciplinasMatriculadas.size());
+        assertTrue(disciplinasMatriculadas.contains(disciplina));
     }
+
 }
