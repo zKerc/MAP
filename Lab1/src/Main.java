@@ -13,11 +13,12 @@ public class Main {
         Disciplina disciplina3 = new Disciplina("Redes", "14:00 - 16:00");
         
 
-        // Matrícula de alunos na disciplina
-        disciplina1.matricularAluno(aluno1);
-        disciplina1.matricularAluno(aluno2);
-        disciplina2.matricularAluno(aluno1);
-        disciplina3.matricularAluno(aluno1);
+
+        aluno1.matricularDisciplina(disciplina1);
+        aluno1.matricularDisciplina(disciplina3);
+        aluno2.matricularDisciplina(disciplina1);
+        aluno2.matricularDisciplina(disciplina2);
+      
 
         // Atribuição de disciplina ao professor
         professor1.atribuirDisciplina(disciplina1);
