@@ -42,7 +42,6 @@ public class Disciplina {
         }
 
         alunosMatriculados.add(aluno);
-        aluno.matricularDisciplina(this); //Passa a disciplina como argumento para atualizar as disciplinas do aluno
         return true;
     }
 
