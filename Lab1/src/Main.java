@@ -1,64 +1,53 @@
-import java.util.List;
+
+import ClassesAssociacao.AlunoDisciplina;
+import ClassesAssociacao.ProfessorDisciplina;
+import Exception.NaoEncontrado;
+
 
 public class Main {
-	public static void main(String[] args) {
+    public static void main(String[] args) throws NaoEncontrado {
+
+        ControleAcademico controle = new ControleAcademico();
+        
+        // Matricular um aluno e cadastrar disciplinas
+        controle.matricularAluno("Kaio", 123);
+        controle.matricularAluno("Arthur", 2345);
+        controle.cadastrarDisciplina("Matemática", "12312321", "11:00", "13:00");
+        controle.cadastrarDisciplina("Lógica", "12321", "9:00", "11:00");
+
+        // Matricular um professor
+        controle.matricularProfessor("Sabrina", 213);
+
+        // Adicionar disciplina ao aluno
+        controle.adicionarDisciplinaAoAluno(123, "12321");
+        controle.adicionarDisciplinaAoAluno(2345, "12321");
+
+        // Adicionar disciplina ao professor
+        controle.adicionarDisciplinaAoProfessor(213, "12321");
+        controle.adicionarDisciplinaAoProfessor(213, "12312321");
+
+
+
+        // Quais alunos de uma dada disciplina?
+        // Quantos alunos em uma dada disciplina?
+        controle.consultarAlunosNaDisciplina("12321");
+
+        // Quais disciplinas um professor esta ministrando?
+        // Quais os horarios de um professor?
+        ProfessorDisciplina professorDisciplina = controle.retornarProfessor(213);
+        professorDisciplina.verificarDisciplinas();
        
-        Aluno aluno1 = new Aluno("Arthur", 21209876);
-        Aluno aluno2 = new Aluno("Kaio", 21209878);
-        
-        
-        Professor professor1 = new Professor("Marcos");
-        Disciplina disciplina1 = new Disciplina("MAP", "09:00 - 11:00");
-        Disciplina disciplina2 = new Disciplina("APS", "11:00 - 13:00");
-        Disciplina disciplina3 = new Disciplina("Redes", "14:00 - 16:00");
-        
 
-
-        aluno1.matricularDisciplina(disciplina1);
-        aluno1.matricularDisciplina(disciplina3);
-        aluno2.matricularDisciplina(disciplina1);
-        aluno2.matricularDisciplina(disciplina2);
-      
-
-        // Atribuição de disciplina ao professor
-        professor1.atribuirDisciplina(disciplina1);
-        professor1.atribuirDisciplina(disciplina2);
-        professor1.atribuirDisciplina(disciplina3);
-
-        // Quais disciplinas um professor está ministrando
-        System.out.println("Docente " + professor1.getNome() + " está ministrando as disciplinas:");
-        for (Disciplina d : professor1.getDisciplinasMinistradas()) {
-            System.out.println(d.getNome());
-        }
-        
-        //Qual o horário de um professor
-        System.out.println("\nHorário do docente " + professor1.getNome() + ":");
-        for (Disciplina d : professor1.getDisciplinasMinistradas()) {
-            System.out.println(d.getNome() + " - Horário: " + d.getHorarioDisciplina());
-        }
-        
-        // Quais os alunos de uma dada disciplina
-        System.out.println("\nLista de alunos da disciplina " + disciplina1.getNome() + ":");
-        List<Aluno> alunosMatriculados = disciplina1.listarAlunosMatriculados();
-
-        // Itera sobre a lista de alunos matriculados e exibe
-        for (Aluno aluno : alunosMatriculados) {
-         System.out.println("\nNome: " + aluno.getNome() + ", Matrícula: " + aluno.getMatricula());
-        }
-        
         // Quais as disciplinas de um aluno
-        System.out.println("\nDisciplinas de " + aluno1.getNome() + ":");
-        for (Disciplina d : aluno1.getDisciplinasMatriculadas()) {
-            System.out.println(d.getNome());
-        }
+        // Quais os horarios de um aluno?
+        AlunoDisciplina alunoPorDisciplina = controle.retornarAluno(2345);
+        alunoPorDisciplina.verificarDisciplinas();
+
+
         
-        // Quais os horários de aula de um discente
-        System.out.println("\nHorários de aula do discente " + aluno1.getNome() + ":");
-        for (Disciplina d : aluno1.getDisciplinasMatriculadas()) {
-            System.out.println(d.getNome() + " - Horário: " + d.getHorarioDisciplina());
-        }
+
+
         
-        // Qual o número de alunos de uma disciplina
-        System.out.println("\nNúmero de alunos na disciplina " + disciplina1.getNome() + ": " + disciplina1.getAlunosMatriculados().size());
+
     }
 }

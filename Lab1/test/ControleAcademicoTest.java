@@ -1,38 +1,67 @@
 import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import Exception.NaoEncontrado;
 
 public class ControleAcademicoTest {
 
-    private ControleAcademico controleAcademico;
-    private Aluno aluno1;
-    private Aluno aluno2;
-    private Professor professor;
-    private Disciplina disciplina;
+    private ControleAcademico controle;
 
     @Before
     public void setUp() {
-        controleAcademico = new ControleAcademico();
-        aluno1 = new Aluno("João", 1234567);
-        aluno2 = new Aluno("Maria", 89101113);
-        professor = new Professor("Professor1");
-        disciplina = new Disciplina("Disciplina1", "08:00");
+        controle = new ControleAcademico();
     }
 
     @Test
-    public void testMatricular() {
-        assertTrue(controleAcademico.matricularAluno(aluno1));
-        assertTrue(controleAcademico.matricularAluno(aluno2));
-        
-        assertFalse(controleAcademico.matricularAluno(aluno1)); // Tentar matricular o mesmo aluno novamente
+    public void testMatricularAluno() {
+        controle.matricularAluno("João", 123);
+        assertEquals(1, controle.getAlunos().size());
     }
 
     @Test
-    public void testAtribuirProfessor() {
+    public void testMatricularProfessor() {
+        controle.matricularProfessor("Maria", 456);
+        assertEquals(1, controle.getProfessores().size());
+    }
 
-        controleAcademico.atribuirProfessor(professor, disciplina);
-        
-        assertEquals(professor, disciplina.getProfessorTitular());
+    @Test
+    public void testCadastrarDisciplina() {
+        controle.cadastrarDisciplina("Matemática", "MAT001", "08:00", "10:00");
+        assertEquals(1, controle.getDisciplinas().size());
+    }
+
+    @Test
+    public void testRetornarAluno() throws NaoEncontrado {
+        controle.matricularAluno("João", 123);
+        assertEquals("João", controle.retornarAluno(123).getAluno().getNome());
+    }
+
+    @Test(expected = NaoEncontrado.class)
+    public void testRetornarAlunoNaoEncontrado() throws NaoEncontrado {
+        controle.retornarAluno(999);
+    }
+
+    @Test
+    public void testRetornarProfessor() throws NaoEncontrado {
+        controle.matricularProfessor("Maria", 456);
+        assertEquals("Maria", controle.retornarProfessor(456).getProfessor().getNome());
+    }
+
+    @Test(expected = NaoEncontrado.class)
+    public void testRetornarProfessorNaoEncontrado() throws NaoEncontrado {
+        controle.retornarProfessor(999);
+    }
+
+    @Test
+    public void testRetornarDisciplina() throws NaoEncontrado {
+        controle.cadastrarDisciplina("Matemática", "MAT001", "08:00", "10:00");
+        assertEquals("Matemática", controle.retornarDisciplina("MAT001").getNome());
+    }
+
+    @Test(expected = NaoEncontrado.class)
+    public void testRetornarDisciplinaNaoEncontrada() throws NaoEncontrado {
+        controle.retornarDisciplina("INVALID");
     }
 }
